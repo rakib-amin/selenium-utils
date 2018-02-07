@@ -126,7 +126,7 @@ public class ApplicationUtils{
         JavascriptExecutor javascriptExecutor =  (JavascriptExecutor) driver;
 
         String passwordScript = "$('input:password').each(function(){" +
-                                    "$(this).val('maxLength');" +
+                                    "$(this).val('" + input + "');" +
                                 "});";
 
         javascriptExecutor.executeScript(passwordScript);
