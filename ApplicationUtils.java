@@ -76,4 +76,86 @@ public class ApplicationUtils{
             e.printStackTrace();
         }
     }
+    
+    public static void fillUpAnyForm(WebDriver driver, String input) {
+
+        List<WebElement> selectList = driver.findElements(By.tagName("select"));
+
+        for (WebElement select: selectList) {
+
+            try {
+
+                Select dropDown = new Select(select);
+
+                if (!dropDown.isMultiple()) {
+
+                    try {
+                        dropDown.selectByIndex(dropDown.getOptions().size() - 1);
+
+                    } catch (NoSuchElementException noSuchElementException) {
+                         continue;
+                    }
+                }
+
+            } catch (StaleElementReferenceException staleElementReferenceException) {
+
+                continue;
+            }
+        }
+
+        JavascriptExecutor javascriptExecutor =  (JavascriptExecutor) driver;
+
+        String passwordScript = "$('input:password').each(function(){" +
+                                    "$(this).val('maxLength');" +
+                                "});";
+
+        javascriptExecutor.executeScript(passwordScript);
+
+        String textareaScript =
+                "var allTextArea = document.getElementsByTagName(\"textarea\");"
+                + "for (var i=0, max = allTextArea.length; i < max; i++) {"
+                +       "$(allTextArea[i]).val('" + input + "');"
+                + "}";
+
+        javascriptExecutor.executeScript(textareaScript);
+
+        String filteredInputScript =
+                "var allInputs = document.getElementsByTagName(\"input\");"
+                + "for (var i=0, max = allInputs.length; i < max; i++) {"
+                +       "if($(allInputs[i]).attr('type') == \"checkbox\") {"
+                +           "$(allInputs[i]).attr('checked','checked');"
+                +       "} else if($(allInputs[i]).attr('type') == \"text\" && !$(allInputs[i]).hasClass('ui-autocomplete-input')) {" +
+                                "if(($(allInputs[i]).attr('id') != undefined" +
+                                    "&& !($(allInputs[i]).attr('id').toLowerCase().indexOf(\"date\") > 0) " +
+                                    "&& !($(allInputs[i]).attr('id').toLowerCase().indexOf(\"email\") > 0) " +
+                                    "&& !($(allInputs[i]).attr('id').toLowerCase().indexOf(\"time\") > 0)) ||" +
+                                    "($(allInputs[i]).attr('name') != undefined " +
+                                    "&& !($(allInputs[i]).attr('name').toLowerCase().indexOf(\"date\") > 0) " +
+                                    "&& !($(allInputs[i]).attr('name').toLowerCase().indexOf(\"email\") > 0) " +
+                                    "&& !($(allInputs[i]).attr('name').toLowerCase().indexOf(\"time\") > 0)) ||" +
+                                    "($(allInputs[i]).attr('className') != undefined " +
+                                    "&& !($(allInputs[i]).attr('className').toLowerCase().indexOf(\"date\") > 0) " +
+                                    "&& !($(allInputs[i]).attr('className').toLowerCase().indexOf(\"email\") > 0) " +
+                                    "&& !($(allInputs[i]).attr('className').toLowerCase().indexOf(\"time\") > 0))) {" +
+                                       "if($(allInputs[i]).attr('maxLength') >= 9) {"+
+                                            "$(allInputs[i]).val('" + input + "');" +
+                                        "} else {" +
+                                            "$(allInputs[i]).val('" + input.substring(0,3) + "');" +
+                                        "}"
+                +               "}" +
+                          "}"
+                + "}";
+
+        javascriptExecutor.executeScript(filteredInputScript);
+
+        String submitScript =
+                 "var allInputs = document.getElementsByTagName(\"input\");"
+                + "for (var i=0, max = allInputs.length; i < max; i++) {"
+                +       "if($(allInputs[i]).attr('value') == \"Save\" || $(allInputs[i]).attr('value') == \"Submit\") {"
+                +           "$(allInputs[i]).click();"
+                +       "}"
+                + "}";
+
+        javascriptExecutor.executeScript(submitScript);
+    }
 }
