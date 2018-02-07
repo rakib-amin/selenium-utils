@@ -17,10 +17,18 @@ import static java.util.concurrent.TimeUnit.SECONDS;
  */
 public class ApplicationUtils{
 
+    /*
+    * Returns current time in that timezone as a java.lang.String
+    * @param timeZone Standard Time Zone
+    * TODO: pass time/date format as argument
+    */
     public static String getTodayIn(String timeZone) {
         return ZonedDateTime.now(ZoneId.of(timeZone)).format(DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a"));
     }
-
+    
+    /*
+    * Prints current time in all US and some Asia timezones
+    */
     public static void printNowInAllTimeZones() {
         System.out.println("US/Samoa: " + getTodayIn("US/Samoa"));
         System.out.println("US/Aleutian: " + getTodayIn("US/Aleutian"));
@@ -50,6 +58,9 @@ public class ApplicationUtils{
         System.out.println("Asia/Thimphu: " + getTodayIn("Asia/Thimphu"));
     }
 
+    /*
+    * Prints all time zones with current time whose time is behind today in Asia/Dhaka Time Zone
+    */
     public static void printTimeZonesInYesterday() {
 
         List<String> timeZones = Arrays.asList("US/Samoa","US/Aleutian","US/Hawaii","US/Alaska","US/Pacific",
@@ -68,6 +79,10 @@ public class ApplicationUtils{
         }
     }
 
+    /*
+    * Uses thread sleep for waiting, may seem like a brute wait, but useful
+    * @param seconds No of seconds this thread should sleep
+    */
     public static void waitForSeconds(int seconds) {
         try {
             SECONDS.sleep(seconds);
@@ -77,6 +92,11 @@ public class ApplicationUtils{
         }
     }
     
+    /*
+    * Fills up any HTML form using jQuery and Selenium API
+    * @param driver WebDriver
+    * @param input any combination of input string for fill up
+    */
     public static void fillUpAnyForm(WebDriver driver, String input) {
 
         List<WebElement> selectList = driver.findElements(By.tagName("select"));
