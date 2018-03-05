@@ -76,11 +76,19 @@ public class ApplicationUtils{
 
             if(timeZoneNow.toLocalDate().isBefore(bdTimeZoneNow.toLocalDate())) {
 
-                 System.out.println(timeZone + " " + getTodayIn(timeZone)
-                        + " Behind by " + (23 - timeZoneNow.getHour()) + " hours "
-                        + (60 - timeZoneNow.getMinute()) + " minutes.");
+                System.out.println(timeZone + " " + getTodayIn(timeZone)
+                        + " Behind by " + getHourMinutes(timeZoneNow));
             }
         }
+    }
+
+    private static String getHourMinutes(ZonedDateTime zonedDateTime) {
+
+        String hour = (zonedDateTime.getMinute() > 0) ? String.valueOf((23 - zonedDateTime.getHour())) : String.valueOf((24 - zonedDateTime.getHour()));
+        String minute = (zonedDateTime.getMinute() > 0) ? String.valueOf((60 - zonedDateTime.getMinute())) : "0";
+
+        return hour + " hours "+ minute + " minutes.";
+
     }
 
     /*
