@@ -89,7 +89,7 @@ public class ApplicationUtils{
         String minute = (zonedDateTime.getMinute() > 0) ? String.valueOf((59 - zonedDateTime.getMinute())) + " minutes"
                 : "";
 
-        return ((hour.contains("0")) ? "" : hour) + minute + " left till Midnight";
+        return (('0' == hour.charAt(0)) ? "" : hour) + minute + " left till Midnight";
     }
 
     /*
