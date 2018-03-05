@@ -71,10 +71,13 @@ public class ApplicationUtils{
 
         for (String timeZone : timeZones) {
 
-            if(ZonedDateTime.now(ZoneId.of(timeZone)).toLocalDate()
-                    .isBefore(ZonedDateTime.now(ZoneId.of("Asia/Dhaka")).toLocalDate())) {
+            ZonedDateTime timeZoneNow = ZonedDateTime.now(ZoneId.of(timeZone));
+            ZonedDateTime bdTimeZoneNow = ZonedDateTime.now(ZoneId.of("Asia/Dhaka"));
 
-                System.out.println(timeZone + " " + getTodayIn(timeZone));
+            if(timeZoneNow.toLocalDate().isBefore(bdTimeZoneNow.toLocalDate())) {
+
+                System.out.println(timeZone + " " + getTodayIn(timeZone)
+                        + " Behind by " + (timeZoneNow.getHour() - bdTimeZoneNow.getHour()) + " hours.");
             }
         }
     }
