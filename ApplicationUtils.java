@@ -76,8 +76,9 @@ public class ApplicationUtils{
 
             if(timeZoneNow.toLocalDate().isBefore(bdTimeZoneNow.toLocalDate())) {
 
-                System.out.println(timeZone + " " + getTodayIn(timeZone)
-                        + " Behind by " + (timeZoneNow.getHour() - bdTimeZoneNow.getHour()) + " hours.");
+                 System.out.println(timeZone + " " + getTodayIn(timeZone)
+                        + " Behind by " + (24 - timeZoneNow.getHour()) + " hours "
+                        + (60 - timeZoneNow.getMinute()) + " minutes.");
             }
         }
     }
