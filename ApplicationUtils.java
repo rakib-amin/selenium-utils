@@ -76,19 +76,20 @@ public class ApplicationUtils{
 
             if(timeZoneNow.toLocalDate().isBefore(bdTimeZoneNow.toLocalDate())) {
 
-                System.out.println(timeZone + " " + getTodayIn(timeZone)
-                        + " Behind by " + getHourMinutes(timeZoneNow));
+                System.out.println(timeZone + " " + getTodayIn(timeZone) + ", "
+                        + getHourMinutesLeftTillMidnight(timeZoneNow));
             }
         }
     }
 
-    private static String getHourMinutes(ZonedDateTime zonedDateTime) {
+    private static String getHourMinutesLeftTillMidnight(ZonedDateTime zonedDateTime) {
 
-        String hour = (zonedDateTime.getMinute() > 0) ? String.valueOf((23 - zonedDateTime.getHour())) : String.valueOf((24 - zonedDateTime.getHour()));
-        String minute = (zonedDateTime.getMinute() > 0) ? String.valueOf((60 - zonedDateTime.getMinute())) : "0";
+        String hour = (zonedDateTime.getMinute() > 0) ? String.valueOf((23 - zonedDateTime.getHour())) + " hours "
+                : String.valueOf((24 - zonedDateTime.getHour())) + " hours ";
+        String minute = (zonedDateTime.getMinute() > 0) ? String.valueOf((59 - zonedDateTime.getMinute())) + " minutes"
+                : "";
 
-        return hour + " hours "+ minute + " minutes.";
-
+        return ((hour.contains("0")) ? "" : hour) + minute + " left till Midnight";
     }
 
     /*
