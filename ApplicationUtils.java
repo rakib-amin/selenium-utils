@@ -15,6 +15,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
  * @author rakibamin
  * @since 1/20/2018
  */
+
 public class ApplicationUtils{
 
     /*
