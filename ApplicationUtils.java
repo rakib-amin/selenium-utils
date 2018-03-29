@@ -21,7 +21,6 @@ public class ApplicationUtils{
     /*
     * Returns current time in that timezone as a java.lang.String
     * @param timeZone Standard Time Zone
-    * TODO: pass time/date format as argument
     */
     public static String getTodayIn(String timeZone) {
         return ZonedDateTime.now(ZoneId.of(timeZone)).format(DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a"));
